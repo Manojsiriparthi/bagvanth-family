@@ -1,125 +1,92 @@
-class FamilyConnect {
-    constructor() {
-        this.familyMembers = [];
-        this.connectionStatus = 'disconnected';
-        this.init();
-    }
+document.addEventListener('DOMContentLoaded', function() {
+    const connectBtn = document.getElementById('connect-btn');
+    const familyCodeInput = document.getElementById('family-code');
+    const familyMembersDiv = document.getElementById('family-members');
 
-    init() {
-        this.bindEvents();
-        this.loadStoredConnections();
-    }
+    // Sample family data
+    const familyData = {
+        'BAG2024': [
+            { name: 'Rajesh Bagvanth', role: 'Admin', status: 'online' },
+            { name: 'Priya Bagvanth', role: 'Member', status: 'online' },
+            { name: 'Arjun Bagvanth', role: 'Member', status: 'offline' },
+            { name: 'Meera Bagvanth', role: 'Member', status: 'online' }
+        ],
+        'BAG2025': [
+            { name: 'Suresh Bagvanth', role: 'Admin', status: 'online' },
+            { name: 'Lakshmi Bagvanth', role: 'Member', status: 'online' },
+            { name: 'Kiran Bagvanth', role: 'Member', status: 'offline' }
+        ]
+    };
 
-    bindEvents() {
-        const connectBtn = document.getElementById('connect-btn');
-        const familyCodeInput = document.getElementById('family-code');
+    if (connectBtn) {
+        connectBtn.addEventListener('click', function() {
+            const code = familyCodeInput.value.trim().toUpperCase();
+            
+            if (!code) {
+                alert('Please enter a family code');
+                return;
+            }
 
-        connectBtn.addEventListener('click', () => this.connectToFamily());
-        familyCodeInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                this.connectToFamily();
+            if (familyData[code]) {
+                displayFamilyMembers(code, familyData[code]);
+            } else {
+                familyMembersDiv.innerHTML = `
+                    <h3>Family Code Not Found</h3>
+                    <p style="color: #dc3545; text-align: center;">
+                        The family code "${code}" was not found. Please check your code and try again.
+                    </p>
+                    <p style="text-align: center; margin-top: 1rem;">
+                        Try: BAG2024 or BAG2025
+                    </p>
+                `;
             }
         });
     }
 
-    connectToFamily() {
-        const familyCode = document.getElementById('family-code').value.trim();
-        
-        if (!familyCode) {
-            alert('Please enter a family code');
-            return;
-        }
-
-        // Simulate connection process
-        this.showConnecting();
-        
-        setTimeout(() => {
-            this.establishConnection(familyCode);
-        }, 2000);
+    // Allow Enter key to connect
+    if (familyCodeInput) {
+        familyCodeInput.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                connectBtn.click();
+            }
+        });
     }
 
-    showConnecting() {
-        const connectBtn = document.getElementById('connect-btn');
-        connectBtn.textContent = 'Connecting...';
-        connectBtn.disabled = true;
-    }
+    function displayFamilyMembers(code, members) {
+        let membersHtml = `
+            <h3>Family Members for Code: ${code}</h3>
+            <div style="margin-top: 1rem;">
+        `;
 
-    establishConnection(familyCode) {
-        // Mock family data - in real app this would come from API
-        const mockFamilyData = {
-            'BAG001': [
-                { name: 'Rajesh Bagvanth', status: 'online', relation: 'Father' },
-                { name: 'Sunita Bagvanth', status: 'online', relation: 'Mother' },
-                { name: 'Arjun Bagvanth', status: 'offline', relation: 'Brother' },
-                { name: 'Priya Bagvanth', status: 'online', relation: 'Sister' }
-            ]
-        };
-
-        const connectBtn = document.getElementById('connect-btn');
-        
-        if (mockFamilyData[familyCode]) {
-            this.familyMembers = mockFamilyData[familyCode];
-            this.connectionStatus = 'connected';
-            this.renderFamilyMembers();
-            this.saveConnection(familyCode);
+        members.forEach(member => {
+            const statusColor = member.status === 'online' ? '#28a745' : '#6c757d';
+            const statusIcon = member.status === 'online' ? '🟢' : '⚫';
             
-            connectBtn.textContent = 'Connected';
-            connectBtn.style.backgroundColor = '#2ecc71';
-        } else {
-            alert('Invalid family code. Please check and try again.');
-            connectBtn.textContent = 'Connect';
-            connectBtn.disabled = false;
-        }
+            membersHtml += `
+                <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px; margin: 5px 0; background: white; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+                    <div>
+                        <span style="font-weight: bold;">👤 ${member.name}</span>
+                        <span style="margin-left: 10px; color: #666; font-size: 14px;">(${member.role})</span>
+                    </div>
+                    <div style="color: ${statusColor};">
+                        ${statusIcon} ${member.status}
+                    </div>
+                </div>
+            `;
+        });
+
+        membersHtml += '</div>';
+        familyMembersDiv.innerHTML = membersHtml;
     }
 
-    renderFamilyMembers() {
-        const membersContainer = document.getElementById('family-members');
-        
-        if (this.familyMembers.length === 0) {
-            membersContainer.innerHTML = '<p>No family members found.</p>';
-            return;
-        }
-
-        const membersHTML = this.familyMembers.map(member => `
-            <div class="family-member">
-                <strong>${member.name}</strong> - ${member.relation}
-                <span class="member-status status-${member.status}">${member.status}</span>
-            </div>
-        `).join('');
-
-        membersContainer.innerHTML = `
-            <h3>Connected Family Members (${this.familyMembers.length})</h3>
-            ${membersHTML}
+    // Initialize with default message
+    if (familyMembersDiv) {
+        familyMembersDiv.innerHTML = `
+            <h3>Family Members</h3>
+            <p style="text-align: center; color: #666;">Enter your family code to see connected members</p>
+            <p style="text-align: center; margin-top: 1rem; font-size: 14px; color: #888;">
+                Demo codes: BAG2024, BAG2025
+            </p>
         `;
     }
-
-    saveConnection(familyCode) {
-        localStorage.setItem('bagvanth-family-code', familyCode);
-        localStorage.setItem('bagvanth-connection-time', new Date().toISOString());
-    }
-
-    loadStoredConnections() {
-        const storedCode = localStorage.getItem('bagvanth-family-code');
-        if (storedCode) {
-            document.getElementById('family-code').value = storedCode;
-        }
-    }
-
-    disconnect() {
-        this.familyMembers = [];
-        this.connectionStatus = 'disconnected';
-        localStorage.removeItem('bagvanth-family-code');
-        
-        const connectBtn = document.getElementById('connect-btn');
-        connectBtn.textContent = 'Connect';
-        connectBtn.disabled = false;
-        connectBtn.style.backgroundColor = '#3498db';
-        
-        document.getElementById('family-members').innerHTML = '';
-    }
-}
-
-// Initialize the family connect system when page loads
-document.addEventListener('DOMContentLoaded', () => {
-    window.familyConnect = new FamilyConnect();
 });

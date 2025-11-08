@@ -1,9 +1,11 @@
 version: '3.8'
-
 services:
   bagvanth-family:
     build: .
+    container_name: bagvanth-family-web
     ports:
-      - "3000:80"
-    container_name: bagvanth-family-app
+      - "8080:80"
     restart: unless-stopped
+    volumes:
+      - ./index.html:/usr/share/nginx/html/index.html:ro
+      - ./images:/usr/share/nginx/html/images:ro

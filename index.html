@@ -4,45 +4,200 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bagvanth Family</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: 'Georgia', serif; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        .navigation { 
+            background: rgba(0,0,0,0.8); 
+            padding: 1rem; 
+            text-align: center; 
+            backdrop-filter: blur(10px);
+        }
+        .nav-btn { 
+            background: rgba(255,255,255,0.2); 
+            color: white; 
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 12px 24px; 
+            margin: 0 10px; 
+            cursor: pointer; 
+            border-radius: 25px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+        .nav-btn:hover { background: rgba(255,255,255,0.3); }
+        .nav-btn.active { 
+            background: rgba(255,255,255,0.9); 
+            color: #333;
+            transform: translateY(-2px);
+        }
+        .page { display: none; padding: 2rem; }
+        .page.active { display: block; }
+        .page-container { max-width: 1200px; margin: 0 auto; text-align: center; }
+        h1 { 
+            margin-bottom: 2rem; 
+            color: white; 
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .image-gallery { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
+            gap: 3rem; 
+            margin: 3rem 0; 
+        }
+        .image-container { 
+            background: rgba(255,255,255,0.95); 
+            padding: 2rem; 
+            border-radius: 20px; 
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+        .image-container:hover { transform: translateY(-10px); }
+        .family-image { 
+            width: 100%; 
+            height: 300px; 
+            object-fit: cover; 
+            border-radius: 15px;
+            border: 3px solid #667eea;
+        }
+        .image-container h3 {
+            color: #333;
+            margin: 1rem 0;
+            font-size: 1.5rem;
+        }
+        .image-container p {
+            color: #666;
+            font-style: italic;
+        }
+        .story-container { 
+            background: rgba(255,255,255,0.95); 
+            padding: 3rem; 
+            border-radius: 20px; 
+            box-shadow: 0 8px 30px rgba(0,0,0,0.2); 
+            margin: 2rem auto; 
+            max-width: 900px; 
+            text-align: left; 
+        }
+        .story-container h2 { 
+            color: #333; 
+            margin-bottom: 2rem; 
+            text-align: center;
+            font-size: 2.5rem;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 1rem;
+        }
+        .story-container p { 
+            margin-bottom: 1.5rem; 
+            line-height: 1.8; 
+            color: #444;
+            font-size: 1.1rem;
+            text-align: justify;
+        }
+        .story-container em {
+            color: #667eea;
+            font-weight: bold;
+        }
+        .image-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+        .image-links img {
+            width: 150px;
+            height: auto;
+            border-radius: 10px;
+            border: 2px solid #667eea;
+        }
+    </style>
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navigation">
-        <button id="page1-btn" class="nav-btn active">Family Gallery</button>
-        <button id="page2-btn" class="nav-btn">Family Connect</button>
+        <button id="page1-btn" class="nav-btn active">Bagvanth & Toxic Images</button>
+        <button id="page2-btn" class="nav-btn">The Mother's Secret</button>
     </nav>
 
-    <!-- Page 1: Family Images -->
+    <!-- Page 1: Bagvanth and Toxic Images -->
     <div id="page1" class="page active">
         <div class="page-container">
-            <h1>Welcome to Bagvanth Family</h1>
-            <div class="image-gallery">
-                <div class="image-container">
-                    <img src="images/WhatsApp Image 2025-11-08 at 21.30.25.jpeg" alt="Family Photo 1" class="family-image">
-                </div>
-                <div class="image-container">
-                    <img src="images/WhatsApp Image 2025-11-06 at 23.15.41.jpeg" alt="Family Photo 2" class="family-image">
-                </div>
+            <h1>Bagvanth & Toxic</h1>
+            <div class="image-links">
+                <a href="https://intense-turquoise-devheamdrh.edgeone.app" target="_blank" rel="noopener noreferrer">
+                    <img src="images/toxic.jpeg" alt="Toxic Site" />
+                </a>
+                
+                <a href="https://impressive-ivory-a04psgr57m.edgeone.app" target="_blank" rel="noopener noreferrer">
+                    <img src="images/bagvanth.jpeg" alt="Bagvanth Site" />
+                </a>
             </div>
         </div>
     </div>
 
-    <!-- Page 2: Family Connect -->
+    <!-- Page 2: Novel Story -->
     <div id="page2" class="page">
         <div class="page-container">
-            <div class="connect-container">
-                <h1>Connect to Your Family</h1>
-                <div class="connect-form">
-                    <input type="text" id="family-code" placeholder="Enter Family Code" maxlength="10">
-                    <button id="connect-btn">Connect</button>
-                </div>
-                <div id="family-members" class="family-members-container"></div>
+            <h1>The Mother's Secret</h1>
+            <div class="story-container">
+                <h2>The Affair of Bagvanth's Mother</h2>
+                
+                <p>Bagvanth and toxic good friends, oka roju idharu bar lo thagesaru. bagvanth toxic ni valla home ki tesukelladu.</p>
+                
+                <p>bagvanth padukundipoyadu kani toxic nidrapothunna valla amma ni mrng varaku dengadu. toxic dengudike bagvanth valla kuda njoy chesindhi</p>
+                
+                <p> malli oka roju bagavanth valla amma bagvnath tho ni frnd ni piluvu home ki sunday mutton chesthanu andhi , bagvanth nijam teliyaka toxic ni pilichadu </p>
+                <p>toxic vachi full ga thinesi valla amma ni 3 round lu vesukunnadu</p>
+                
+                <p>oka roju bagvanth intlo lenapudu valla amma toxic ki phone chesindhi, toxic vachi valla amma tho sruganram lo unapudu sudden ga bagvanth window lo undi chusadu</p>
+                
+                <p>window lo nundi bagvanth ki valla amma toxic medha kurchoni upadam chusi bagvanth edvadam start chesadu toxic matram lopala valla amma ni baga njoy chesthunadu</p>
+                
+                <p>e story antha bagvanth manasa chowdary tho panchukunnadu, edhi vinna manasa chowdary bagvanth ni vadhilesi toxic tho denginchukovadam start chesindhi </p>
+                <p><em>manasa chowdary ki unna HIV, toxic ki bagvanth ki vachindhi, toxic nundi bagvnath mother kuda HIV tho badhapaduthundhi. CH lo vallani  mansikaga support cheyandi</em></p>
             </div>
         </div>
     </div>
 
-    <script src="js/navigation.js"></script>
-    <script src="js/connect.js"></script>
+    <script>
+        // Image loading handlers
+        function handleImageError(img, name) {
+            console.error(`Failed to load ${name} image from: ${img.src}`);
+            img.src = `https://via.placeholder.com/350x300/667eea/ffffff?text=${name}+Image+Not+Found`;
+            img.title = `Original ${name} image could not be loaded`;
+        }
+
+        function handleImageLoad(img, name) {
+            console.log(`Successfully loaded ${name} image from: ${img.src}`);
+        }
+
+        document.getElementById('page1-btn').addEventListener('click', function() {
+            showPage('page1');
+            setActiveButton('page1-btn');
+        });
+
+        document.getElementById('page2-btn').addEventListener('click', function() {
+            showPage('page2');
+            setActiveButton('page2-btn');
+        });
+
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            document.getElementById(pageId).classList.add('active');
+        }
+
+        function setActiveButton(buttonId) {
+            document.querySelectorAll('.nav-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.getElementById(buttonId).classList.add('active');
+        }
+    </script>
 </body>
 </html>

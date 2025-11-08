@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Test - Bagvanth Family</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .test-section { margin: 20px 0; padding: 15px; border: 1px solid #ccc; }
+        .success { color: green; }
+        .error { color: red; }
+        img { max-width: 300px; height: auto; margin: 10px; border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <h1>Bagvanth Family - Image Loading Test</h1>
+    
+    <div class="test-section">
+        <h2>Direct Image Paths Test</h2>
+        <div>
+            <h3>Bagvanth Image:</h3>
+            <img src="images/bagvanth.jpeg" alt="Bagvanth" onload="logSuccess('bagvanth')" onerror="logError('bagvanth', this)">
+            <div id="bagvanth-result"></div>
+        </div>
+        
+        <div>
+            <h3>Toxic Image:</h3>
+            <img src="images/toxic.jpeg" alt="Toxic" onload="logSuccess('toxic')" onerror="logError('toxic', this)">
+            <div id="toxic-result"></div>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Image Information</h2>
+        <div id="image-info">
+            <p>Base URL: <span id="base-url"></span></p>
+            <p>Full Bagvanth URL: <span id="bagvanth-url"></span></p>
+            <p>Full Toxic URL: <span id="toxic-url"></span></p>
+        </div>
+    </div>
+
+    <div class="test-section">
+        <h2>Direct Links Test</h2>
+        <p><a href="images/bagvanth.jpeg" target="_blank">Open Bagvanth Image Directly</a></p>
+        <p><a href="images/toxic.jpeg" target="_blank">Open Toxic Image Directly</a></p>
+    </div>
+
+    <script>
+        // Set URL information
+        document.getElementById('base-url').textContent = window.location.origin;
+        document.getElementById('bagvanth-url').textContent = window.location.origin + '/images/bagvanth.jpeg';
+        document.getElementById('toxic-url').textContent = window.location.origin + '/images/toxic.jpeg';
+
+        function logSuccess(imageName) {
+            document.getElementById(imageName + '-result').innerHTML = 
+                `<span class="success">✅ ${imageName} image loaded successfully!</span>`;
+            console.log(`${imageName} image loaded successfully`);
+        }
+
+        function logError(imageName, imgElement) {
+            const fullUrl = imgElement.src;
+            document.getElementById(imageName + '-result').innerHTML = 
+                `<span class="error">❌ ${imageName} image failed to load from: ${fullUrl}</span>`;
+            console.error(`${imageName} image failed to load from: ${fullUrl}`);
+            
+            // Try to fetch and show more error details
+            fetch(imgElement.src)
+                .then(response => {
+                    if (!response.ok) {
+                        document.getElementById(imageName + '-result').innerHTML += 
+                            `<br><span class="error">HTTP ${response.status}: ${response.statusText}</span>`;
+                    }
+                })
+                .catch(error => {
+                    document.getElementById(imageName + '-result').innerHTML += 
+                        `<br><span class="error">Network error: ${error.message}</span>`;
+                });
+        }
+    </script>
+</body>
+</html>
