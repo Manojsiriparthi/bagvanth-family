@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Placeholder Generator</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .placeholder { margin: 10px; display: inline-block; }
+        canvas { border: 1px solid #ddd; }
+    </style>
+</head>
+<body>
+    <h1>Bagvanth Family - Image Placeholders</h1>
+    <p>This page generates placeholder images for the family website.</p>
+    
+    <div id="placeholders"></div>
+    
+    <script>
+        const placeholders = [
+            { name: 'profile-placeholder', width: 300, height: 300, text: 'Profile Photo' },
+            { name: 'family-crest', width: 200, height: 200, text: 'Bagvanth Crest' },
+            { name: 'hero-bg', width: 800, height: 400, text: 'Hero Background' },
+            { name: 'gallery-sample', width: 400, height: 300, text: 'Gallery Photo' }
+        ];
+        
+        placeholders.forEach(placeholder => {
+            const canvas = document.createElement('canvas');
+            canvas.width = placeholder.width;
+            canvas.height = placeholder.height;
+            
+            const ctx = canvas.getContext('2d');
+            
+            // Create gradient background
+            const gradient = ctx.createLinearGradient(0, 0, placeholder.width, placeholder.height);
+            gradient.addColorStop(0, '#3498db');
+            gradient.addColorStop(1, '#2980b9');
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(0, 0, placeholder.width, placeholder.height);
+            
+            // Add text
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 16px Arial';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText(placeholder.text, placeholder.width/2, placeholder.height/2);
+            
+            // Add size info
+            ctx.font = '12px Arial';
+            ctx.fillText(`${placeholder.width}×${placeholder.height}`, placeholder.width/2, placeholder.height/2 + 25);
+            
+            // Create download link
+            const div = document.createElement('div');
+            div.className = 'placeholder';
+            div.innerHTML = `
+                <h3>${placeholder.name}</h3>
+                ${canvas.outerHTML}
+                <br>
+                <a href="${canvas.toDataURL()}" download="${placeholder.name}.png">Download PNG</a>
+            `;
+            
+            document.getElementById('placeholders').appendChild(div);
+        });
+    </script>
+</body>
+</html>

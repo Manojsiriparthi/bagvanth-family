@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bagvanth Family</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navigation">
+        <button id="page1-btn" class="nav-btn active">Family Gallery</button>
+        <button id="page2-btn" class="nav-btn">Family Connect</button>
+    </nav>
+
+    <!-- Page 1: Family Images -->
+    <div id="page1" class="page active">
+        <div class="page-container">
+            <h1>Welcome to Bagvanth Family</h1>
+            <div class="image-gallery">
+                <div class="image-container">
+                    <img src="images/WhatsApp Image 2025-11-08 at 21.30.25.jpeg" alt="Family Photo 1" class="family-image">
+                </div>
+                <div class="image-container">
+                    <img src="images/WhatsApp Image 2025-11-06 at 23.15.41.jpeg" alt="Family Photo 2" class="family-image">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 2: Family Connect -->
+    <div id="page2" class="page">
+        <div class="page-container">
+            <div class="connect-container">
+                <h1>Connect to Your Family</h1>
+                <div class="connect-form">
+                    <input type="text" id="family-code" placeholder="Enter Family Code" maxlength="10">
+                    <button id="connect-btn">Connect</button>
+                </div>
+                <div id="family-members" class="family-members-container"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/navigation.js"></script>
+    <script src="js/connect.js"></script>
+</body>
+</html>

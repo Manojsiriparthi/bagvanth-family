@@ -1,0 +1,9 @@
+version: '3.8'
+
+services:
+  bagvanth-family:
+    build: .
+    ports:
+      - "3000:80"
+    container_name: bagvanth-family-app
+    restart: unless-stopped
